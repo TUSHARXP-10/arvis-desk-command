@@ -65,7 +65,9 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground overflow-hidden;
+    @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
   }
 
   /* JARVIS Custom Styles */
