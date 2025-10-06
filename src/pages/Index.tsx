@@ -6,9 +6,12 @@ import CommandInput from "@/components/CommandInput";
 import MessageDisplay, { Message } from "@/components/MessageDisplay";
 import { Power } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCommandProcessor } from "@/hooks/useCommandProcessor";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const { toast } = useToast();
+  const { processCommand, listCommands } = useCommandProcessor();
   const [isActive, setIsActive] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -103,24 +106,29 @@ const Index = () => {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/jarvis-chat`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-          },
-          body: JSON.stringify({ message: content }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to get AI response");
+      // First, check if this is a direct command
+      const commandResponse = await processCommand(content);
+      
+      if (commandResponse) {
+        // Direct command executed
+        const commandMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: commandResponse,
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, commandMessage]);
+        speak(commandResponse);
+        return;
       }
 
-      const data = await response.json();
+      // Otherwise, send to AI for natural language processing
+      const { data, error } = await supabase.functions.invoke('jarvis-chat', {
+        body: { message: content }
+      });
+
+      if (error) throw error;
+
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
