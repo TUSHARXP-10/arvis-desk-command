@@ -92,7 +92,7 @@ const Index = () => {
     }
   };
 
-  const handleMessage = (content: string) => {
+  const handleMessage = async (content: string) => {
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -102,25 +102,51 @@ const Index = () => {
 
     setMessages((prev) => [...prev, userMessage]);
 
-    // Simple response system (will be replaced with AI)
-    setTimeout(() => {
-      const responses = [
-        "I'm processing your request. Currently running in demo mode without backend AI.",
-        "Command received. In a full implementation, this would connect to advanced AI systems.",
-        "Understood. This is a demonstration interface. Connect Lovable Cloud for full AI capabilities.",
-        "Processing... This prototype showcases the JARVIS interface. Full functionality requires backend integration.",
-      ];
-      
-      const response: Message = {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/jarvis-chat`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ message: content }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to get AI response");
+      }
+
+      const data = await response.json();
+      const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: responses[Math.floor(Math.random() * responses.length)],
+        content: data.response,
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, response]);
-      speak(response.content);
-    }, 1000);
+      setMessages((prev) => [...prev, aiMessage]);
+      speak(aiMessage.content);
+    } catch (error) {
+      console.error("Error getting AI response:", error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "I apologize, I'm having trouble connecting to my AI systems right now. Please try again.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+      speak(errorMessage.content);
+      
+      toast({
+        title: "Connection Error",
+        description: error instanceof Error ? error.message : "Failed to connect to AI",
+        variant: "destructive",
+      });
+    }
   };
 
   const toggleVoice = () => {
