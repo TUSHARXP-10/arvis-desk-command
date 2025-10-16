@@ -1,66 +1,114 @@
+# Arvis Desk Command
 
+Arvis Desk Command is a modern web application designed to streamline and enhance your workflow. Built with a powerful tech stack, it offers a responsive user experience and easy extensibility to fit your needs.
 
-## How can I edit this code?
+## Table of Contents
 
-There are several ways of editing your application.
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Edit with Lovable](#edit-with-lovable)
+  - [Local Development](#local-development)
+  - [Edit Directly on GitHub](#edit-directly-on-github)
+  - [Use GitHub Codespaces](#use-github-codespaces)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
+---
 
+## Features
 
+- Fast and responsive UI powered by Vite and React
+- Typed codebase using TypeScript
+- Modern styling with Tailwind CSS and shadcn-ui
+- Seamless editing and deployment workflow
 
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## Technologies Used
 
-**Use your preferred IDE**
+This project leverages the following technologies:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Vite** – Lightning-fast development server and build tool
+- **TypeScript** – Type-safe JavaScript for scalable development
+- **React** – Declarative UI library for building user interfaces
+- **shadcn-ui** – Accessible React components for rapid UI development
+- **Tailwind CSS** – Utility-first CSS framework for flexible styling
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## Getting Started
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+You can edit and develop this project using several methods:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Edit with Lovable
 
-# Step 3: Install the necessary dependencies.
-npm i
+Changes made via Lovable will be committed automatically to this repository.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### Local Development
 
-**Edit a file directly in GitHub**
+To work locally in your preferred IDE:
+
+1. **Clone the repository:**
+    ```sh
+    git clone <YOUR_GIT_URL>
+    cd <YOUR_PROJECT_NAME>
+    ```
+2. **Install dependencies:**
+    ```sh
+    npm install
+    ```
+3. **Start the development server:**
+    ```sh
+    npm run dev
+    ```
+4. The app will automatically reload on changes and provide an instant preview.
+
+_Requirement: Node.js & npm (recommended to install via [nvm](https://github.com/nvm-sh/nvm#installing-and-updating))._
+
+### Edit Directly on GitHub
 
 - Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Click the "Edit" (pencil) icon at the top-right of the file view.
+- Make your changes and commit them directly.
 
-**Use GitHub Codespaces**
+### Use GitHub Codespaces
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Go to the main page of the repository.
+- Click on the "Code" button and select the "Codespaces" tab.
+- Click "New codespace" to launch a new Codespace environment.
+- Edit files directly and commit/push changes when done.
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Deploying your project is simple!
 
-## How can I deploy this project?
+To connect a custom domain:
+- Navigate to `Project > Settings > Domains`.
+- Click **Connect Domain** and follow the instructions.
 
+---
 
-Yes, you can!
+## Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Contributions, issues, and feature requests are welcome!
 
+To contribute:
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/yourFeature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/yourFeature`).
+5. Open a Pull Request.
 
+---
+
+## License
+
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
+
+---
+
+> _For questions, feedback, or support, please open an issue on GitHub._
