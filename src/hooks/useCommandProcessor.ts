@@ -26,9 +26,9 @@ export function useCommandProcessor() {
       if (handler.category === 'system') {
         const params = extractParams(input, handler.keywords);
         // For system commands, directly execute via Electron's exposed API
-        if (window.electronAPI && window.electronAPI.executeCommand) {
+        if ((window as any).electronAPI && (window as any).electronAPI.executeCommand) {
           try {
-            const result = await window.electronAPI.executeCommand(handler.name, params);
+            const result = await (window as any).electronAPI.executeCommand(handler.name, params);
             return `System command executed: ${handler.name}. Output: ${JSON.stringify(result)}`;
           } catch (error) {
             return `Error executing system command: ${handler.name}. Error: ${error.message}`;

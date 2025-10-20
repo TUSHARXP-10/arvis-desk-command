@@ -27,9 +27,9 @@ const openAppCommand: CommandHandler = {
   keywords: ['open', 'launch', 'start', 'run'],
   execute: async (params: { appName: string }) => {
     // Check if running in Electron 
-    if (window.electronAPI?.isElectron) {
+    if ((window as any).electronAPI?.isElectron) {
       // Use Electron API 
-      const result = await window.electronAPI.executeCommand('open_application', params);
+      const result = await (window as any).electronAPI.executeCommand('open_application', params);
       return result;
     }
      
@@ -61,8 +61,8 @@ const fileOperationCommand: CommandHandler = {
   category: 'system',
   keywords: ['file', 'folder', 'directory', 'create', 'delete', 'move'],
   execute: async (params: { operation: string; path: string }) => {
-    if (window.electronAPI?.isElectron) {
-      const result = await window.electronAPI.executeCommand('file_operation', params);
+    if ((window as any).electronAPI?.isElectron) {
+      const result = await (window as any).electronAPI.executeCommand('file_operation', params);
       return result;
     }
     return {
@@ -78,8 +78,8 @@ const createFolderCommand: CommandHandler = {
   category: 'system',
   keywords: ['create folder', 'make directory', 'new folder'],
   execute: async (params: { path: string }) => {
-    if (window.electronAPI?.isElectron) {
-      const result = await window.electronAPI.executeCommand('create_folder', params);
+    if ((window as any).electronAPI?.isElectron) {
+      const result = await (window as any).electronAPI.executeCommand('create_folder', params);
       return result;
     }
     return {
@@ -95,8 +95,8 @@ const processControlCommand: CommandHandler = {
   category: 'system',
   keywords: ['process', 'task', 'kill', 'close', 'end'],
   execute: async (params: { action: string; processName: string }) => {
-    if (window.electronAPI?.isElectron) {
-      const result = await window.electronAPI.executeCommand('process_control', params);
+    if ((window as any).electronAPI?.isElectron) {
+      const result = await (window as any).electronAPI.executeCommand('process_control', params);
       return result;
     }
     return {
@@ -112,8 +112,8 @@ const systemInfoCommand: CommandHandler = {
   category: 'system',
   keywords: ['system', 'info', 'information', 'specs'],
   execute: async () => {
-    if (window.electronAPI?.isElectron) {
-      const result = await window.electronAPI.executeCommand('system_info', {});
+    if ((window as any).electronAPI?.isElectron) {
+      const result = await (window as any).electronAPI.executeCommand('system_info', {});
       return result;
     }
     return {
